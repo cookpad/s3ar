@@ -1,0 +1,19 @@
+[package]
+name = "s3ar"
+version = "0.1.0"
+authors = ["Hidekazu Kobayashi <hidekazu-kobayashi@cookpad.com>"]
+edition = "2018"
+license = "MIT"
+repository = "https://github.com/cookpad/s3ar"
+description = "Massively fast S3 downloader/uploader"
+readme = "README.md"
+
+[dependencies]
+rusoto_core = { version = "0.42", default_features = false, features=["rustls"] }
+rusoto_s3 = { version = "0.42", default_features = false, features=["rustls"] }
+futures-01 = { package = "futures", version = "0.1" }
+futures = { version = "0.3", features = ["compat"] }
+tokio = { version = "0.2", features = ["full"] }
+tokio-compat = { version = "0.1", features = ["rt-full"] }
+nix = "0.17"
+clap = "2.33"
