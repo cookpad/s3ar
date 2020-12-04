@@ -118,10 +118,13 @@ fn args() -> ArgMatches<'static> {
 }
 
 fn main() {
-    let aws_region = env::var("AWS_REGION")
-        .map(|v| v.parse())
-        .unwrap_or(Ok(Region::ApNortheast1))
-        .expect("failed to parse AWS_REGION");
+    let aws_region = if let Ok(endpoint) = env::var("S3_ENDPOINT") {
+        let region = Region::Custom { name: "ap-northeast-1".to_owned(), endpoint: endpoint.to_owned() };
+        println!("picked up non-standard endpoint {:?} from S3_ENDPOINT env. variable", region);
+        region
+    } else {
+        Region::ApNortheast1
+    };
 
     let matches = args();
 
